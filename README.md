@@ -1,2 +1,2 @@
 # MikaMakiLite
-A simple telegram bot using AI
+A simple Telegram bot using AI
