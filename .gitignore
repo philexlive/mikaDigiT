@@ -2,3 +2,4 @@
 /.env/
 /.env
 /*.session
+/src/config/*.yaml
