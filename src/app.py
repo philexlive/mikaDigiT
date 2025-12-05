@@ -2,7 +2,7 @@ import config
 import asyncio
 import telethon as tl
 
-from ai.mikamakilite import client
+from src.ai.service import client
 from tbl import get_table_from_chat
 
 

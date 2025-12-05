@@ -1,1 +1,1 @@
-from .mikamakilite import client, inference
+from .service import client, inference
