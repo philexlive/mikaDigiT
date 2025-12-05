@@ -14,13 +14,15 @@ def run_ai():
 def run_reading():
     with client:
         table = get_table_from_chat(config.CHAT, config.TOPIC, client)
-        client.loop.run_until_complete(table)
+        asyncio.run(table)
 
 
 def main():
     client.start()
-    run_reading()
+    # run_reading()
     run_ai()
+    if client.is_connected:
+        client.disconnect()
 
 
 if __name__ == "__main__":
