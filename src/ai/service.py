@@ -19,11 +19,24 @@ client = TelegramClient(
 async def replies(event):
     msg = event.raw_text
     if 'MikaMakiLite' in msg and event.chat_id == CHAT_ID:
+        
+        sender = event.message.sender
+        
+        sender = "{} - {} {}".format(
+            sender.username,
+            sender.first_name,
+            sender.last_name
+        )
+        print(sender)
+
         completion = inference.chat.completions.create(
             messages=[
                 {
                     "role": "user",
-                    "content": character_config.ai.who.format(msg)
+                    "content": character_config.ai.who.format(
+                        model=character_config.ai.model,
+                        username=sender,
+                        respond=msg)
                 }
             ]
         )

@@ -8,12 +8,12 @@ In a new created file `character.yaml` inside `src/config/` directory:
 
 ```character.yaml
 ai:
-    model: meta-llama/Llama-3.3-70B-Instruct
-    provider: groq
-    character: |
-        You are just a chatter in the messenger.
-        Respond to:
-        {}
+  model: meta-llama/Llama-3.3-70B-Instruct
+  provider: groq
+  who: |
+    You are just a chatter in the messenger.
+    Respond to:
+    {}
 
 watermark: Sample Watermark
 ```
