@@ -47,29 +47,24 @@ class AIService:
                 source = MistralSource(**settings)
             case 'huggingface':
                 source = HuggingFaceSource(**settings)
-        
-        print(source.model_dump())
 
         model = source.build()
 
+        instructions=(
+            'Your name: {name}'
+            'Your bio:'
+            '{bio}'
+        ).format(
+            name=persona.name,
+            bio=persona.bio
+        )
         ai_client = Agent(
             model,
             output_type=ClientResponse,
-            instructions=(
-                'Your identity.'
-                'Name: {name}'
-                'Bio:'
-                '{bio}'
-                'Anwer to message:\n'
-                '{message}'
-            ).format(
-                name=persona.name,
-                bio=persona.bio,
-                message=request.text
-            ),
+            instructions=instructions,
             end_strategy='exhaustive'
         )
 
-        result = await ai_client.run("Hello, what is your name?")
+        result = await ai_client.run(request.text)
         
         return result.output
