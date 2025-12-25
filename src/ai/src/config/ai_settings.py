@@ -19,5 +19,3 @@ class AISettings(BaseSettings):
 
 
 ai_settings = AISettings()
-
-print(ai_settings.model_dump())
