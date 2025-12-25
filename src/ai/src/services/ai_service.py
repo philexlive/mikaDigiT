@@ -18,15 +18,19 @@ class ClientResponse(BaseModel):
     text: str = Field(description="Client responded.")
 
 
+class TextRequest(BaseModel):
+    text: str = Field(description="Other user message")
+
+
 class AIService:
     def __init__(
         self, ai: Literal['mistral', 'huggingface'], 
         model: Optional[str] = None
-        ):
+    ):
         self.ai = ai
         self.model=model
 
-    async def run(self):
+    async def run(self, request: TextRequest) -> ClientResponse:
         source: AISource
         
         settings = ai_settings
@@ -56,12 +60,16 @@ class AIService:
                 'Name: {name}'
                 'Bio:'
                 '{bio}'
+                'Anwer to message:\n'
+                '{message}'
             ).format(
                 name=persona.name,
-                bio=persona.bio
+                bio=persona.bio,
+                message=request.text
             ),
             end_strategy='exhaustive'
         )
 
         result = await ai_client.run("Hello, what is your name?")
-        print(result)
+        
+        return result.output
