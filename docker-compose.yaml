@@ -1,12 +1,54 @@
 services:
   ai-agent:
-    build:
-      context: ./src/ai
-    ports:
-      - 8001:8001
+    image: philexfertich/mika-ai-agent
+    build: 
+      context: ./src/ai-agent
+      dockerfile: ../../backend.Dockerfile
+    volumes:
+      - ai-state:/app/var/states
+    networks:
+      - ai-net
+  
+  tg-user-client:
+    image: philexfertich/mika-tg-user-client
+    build: 
+      context: ./src/tg-user-client
+      dockerfile: ../../backend.Dockerfile
+    volumes: 
+      - ./.secrets:/app/sessions:rw
+    env_file:
+      - ./envs/tg-user-client.env
+    networks:
+      - tg-net
 
-  tg-client:
-    build:
-      context: ./src/tg
-    ports:
-      - 8002:8002
+  app:
+    build: ./src/app
+    networks:
+      - ai-net
+      - tg-net
+      # - logic-net
+      # - admin-net
+      # - data-net
+
+  # stats:
+  #   build:
+  #     context: ./src/stats
+  #   networks:
+  #     - stats-net
+
+  # dashboard:
+  #   image: 
+  #   build:
+  #     context: ./src/dashboard
+  #   networks:
+  #     - admin-net
+
+networks:
+  tg-net:
+  ai-net:
+  # stats-net:
+  # admin-net:
+  # data-net:
+
+volumes:
+  ai-state:

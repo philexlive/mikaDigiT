@@ -12,7 +12,6 @@ RUN pip install --no-cache-dir --upgrade -r requirements.txt
 # Copy source code
 COPY --chown=app:app . .
 
-EXPOSE 8002
 USER app
 
-CMD ["fastapi", "run", "run.py", "--port", "8002"]
+CMD ["fastapi", "run", "run.py"]

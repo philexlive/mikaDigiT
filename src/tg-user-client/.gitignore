@@ -2,5 +2,6 @@
 /.venv/
 *.session
 output.txt
-/config
+/config/
 /var/
+docs/

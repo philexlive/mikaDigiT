@@ -1,6 +1,7 @@
-/.venv/
-/.env/
-/.env
+.venv/
+envs/
+.secrets/
+*.env
 *.session
 /src/config/
 __pycache__/

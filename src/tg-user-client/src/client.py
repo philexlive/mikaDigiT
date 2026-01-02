@@ -12,7 +12,7 @@ from src.bot_state import StateManager, BotState, ChatState
 
 
 client = TelegramClient(
-    session=f"var/{client_settings.session}.session", 
+    session=f"/app/sessions/{client_settings.session}.session", 
     api_id=client_settings.api_id, 
     api_hash=client_settings.api_hash
 )
@@ -43,8 +43,8 @@ async def get_response(
                 'text': text
             }
             logger.info(f"request: {request}")
-            response = await http_client.put(
-                'http://ai-agent:8001/process',
+            response = await http_client.post(
+                'http://app:8000/tg-user-client-event',
                 json=request
             )
             logger.info(f"response: {response}")
@@ -157,9 +157,9 @@ async def anonymous_admin_handler(event):
     
     chat_id = event.chat_id
     msg = event.message.text
-    if msg == '<REPLACE>': # TODO Replace with your command
+    if msg == 'mika сладкое': # TODO Replace with your command
         set_chat_active_by_id(chat_id, True)
-    elif msg == '<REPLACE>': # TODO Replace with your command
+    elif msg == 'mika душнишь': # TODO Replace with your command
         set_chat_active_by_id(chat_id)
     else:
         chat = await event.get_chat()
@@ -178,9 +178,9 @@ async def admin_handler(event):
 
     chat_id = event.chat_id
     msg = event.message.text
-    if msg == '<REPLACE>': # TODO Replace with your command
+    if msg == 'mika сладкое': # TODO Replace with your command
         set_chat_active_by_id(chat_id, True)
-    elif msg == '<REPLACE>': # TODO Replace with your command
+    elif msg == 'mika душнишь': # TODO Replace with your command
         set_chat_active_by_id(chat_id)
     else:
         await user_handler(event)
@@ -189,7 +189,7 @@ async def admin_handler(event):
 @client.on(events.NewMessage)
 async def handler(event):
     check_chat_active()
-    if not '<REPLACE>' in event.message.text: # TODO Replace with your command
+    if not 'mika' in event.message.text: # TODO Replace with your command
         logger.info('Conversation has no keyword.')
         return
     

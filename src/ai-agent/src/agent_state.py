@@ -10,7 +10,7 @@ class AgentState(BaseModel):
 
 
 class StateManager:
-    filename = 'var/state.json'
+    filename = 'app/var/states/state.json'
 
     def __init__(self):
         self.state = self.load()
