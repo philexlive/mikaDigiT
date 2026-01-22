@@ -24,7 +24,7 @@ logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
 
-@app.put("/process")
+@app.post("/process")
 async def process_ai(request: TextRequest) -> AgentResponse:
     if request.behaviour in persona_settings.behaviours:
         logger.info(f"Conversation has {request.behaviour} behaviour.")

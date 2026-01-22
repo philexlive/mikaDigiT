@@ -32,7 +32,10 @@ services:
       - tg-net
 
   app:
-    build: ./src/app
+    image: philexfertich/mika-app
+    build:
+      context: ./src/app
+      dockerfile: ../../backend.Dockerfile
     networks:
       - ai-net
       - tg-net
