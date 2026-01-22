@@ -11,6 +11,9 @@ from src.config.service_settings import service_settings
 from src.bot_state import StateManager, BotState, ChatState
 
 
+URL = 'http://app:8000/tg-user-client-event'
+
+
 client = TelegramClient(
     session=f"/app/sessions/{client_settings.session}.session", 
     api_id=client_settings.api_id, 
@@ -43,10 +46,7 @@ async def get_response(
                 'text': text
             }
             logger.info(f"request: {request}")
-            response = await http_client.post(
-                'http://app:8000/tg-user-client-event',
-                json=request
-            )
+            response = await http_client.post(URL, json=request)
             logger.info(f"response: {response}")
             response = response.json()['text']
         except httpx.RequestError as e:
