@@ -38,11 +38,10 @@ async def get_response(
 ) -> str:
     async with httpx.AsyncClient() as http_client:
         try:
+            # TODO change request format to satisfy ai-agent request format
             request = {
-                'label': label,
-                'first_name': first_name,
-                'second_name': second_name or "",
-                'username': username,
+                'behaviour': label,
+                'sender_initials': f'{first_name} {second_name} (username: {username})',
                 'text': text
             }
             logger.info(f"request: {request}")
